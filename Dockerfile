@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y \
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-
 # Expose port 8000
 EXPOSE 8000
 
