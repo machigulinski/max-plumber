@@ -13,23 +13,30 @@ services:
 #      - ./db/data:/var/lib/mysql
       - ./db/init:/docker-entrypoint-initdb.d
     environment:
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ROOT_PASSWORD: "fdjhfnvtxchb"
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+
   app:
     image: php:8.1-apache
     # build specifies the location of a custom Dockerfile
     build: ./
     container_name: max-plumber
     restart: unless-stopped
-    working_dir: /var/www/html
+    #working_dir: /var/www/html
     volumes:
-      - max-plumber:/var/www/html
+      - ./laravel:/var/www/html
     ports:
       - 8000:80
     depends_on:
       - db
+    environment:
+      MYSQL_HOST: ${DB_HOST}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
   phpmyadmin:
     image: phpmyadmin
     restart: always
